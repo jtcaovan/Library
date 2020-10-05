@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Library</title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Better than Goodreads Book Tracker</h1>
+  <button>New Book</button>
+
+  <form id="newBookForm" onsubmit="return newBook()">
+    <ul>
+
+      <li>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"></input>
+      </li>
+
+      <li>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author"></input>
+      <li>
+
+        <label for="pages">Pages:</label>
+        <input type="text" id="pages" name="pages"></input>
+      </li>
+
+      <li>
+        <label for="read">Read:</label>
+        <select id="read">
+          <option value="Want to read">Want to read</option>
+          <option value="Currently reading">Currently reading</option>
+          <option value="Read">Read</option>
+        </select>
+      </li>
+
+      <li>
+        <input type="button" id="submitButton" value="Submit">
+      </li>
+
+    </ul>
+  </form>
+  
+  <div id="library">
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

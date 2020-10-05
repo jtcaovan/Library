@@ -1,0 +1,9 @@
+li {
+    list-style: none;
+}
+
+label, #submit {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
