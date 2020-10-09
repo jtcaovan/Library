@@ -1,22 +1,126 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 li {
     list-style: none;
+    width: 90%;
+    padding: 10px;
 }
+
+h1 {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+
 #libraryDisplay {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .card {
-    width: 100x;
+    width: 200px;
+    height: 250px;
     border: 1px solid black;
     margin: 10px;
     padding: 10px;
 }
-/* #newBookForm {
 
-} */
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+    left: 0;
+    top: 0; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
 
-label, #submit {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
+#newBookForm {
+    background-color:white;
+    text-align: left;
+    margin: 8% auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 470px;
+    border: 1px solid black;
+}
+
+.close {
+    color:black;
+    float: right;
+    font-size: 34px;
+    transition: 0.8px;
+}
+
+.close:hover {
+    font-size: 40px;
+}
+
+h2 {
+    font-family: 'Cormorant Garamond', serif !important;
+    display: block;
+    margin-left: 12px;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    height: 16px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px;
+    font-size: 14px;
+}
+
+select {
+    width: 104%;
+    height: 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+#submitButton {
+    font-size: 16px;
+    width: 35%;
+    height: 35px;
+    background-color: black;
+    color: white;
+    border: none;
+    transition: 0.4s;
+}
+
+#submitButton:hover {
+    font-size: 18px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+#buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#deleteBookButton, #newBookButton {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    height: 35px;
+    width: 130px;
+    background-color: black;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
+#deleteBookButton:hover, #newBookButton:hover{
+    font-size: 18px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
 }
