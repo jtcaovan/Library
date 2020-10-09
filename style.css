@@ -51,14 +51,18 @@ h1 {
     border: 1px solid black;
 }
 
-.close {
+.close1 {
     color:black;
     float: right;
     font-size: 34px;
     transition: 0.8px;
 }
 
-.close:hover {
+.close2 {
+    visibility: hidden;
+}
+
+.close1:hover {
     font-size: 40px;
 }
 

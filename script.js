@@ -1,16 +1,14 @@
 let library = [];
 
-// Query selectors and event listeners
-let libraryDisplay = document.querySelector("#libraryDisplay")
-
+// Query selectors and event listener
 let modal = document.querySelector('#modal')
-
 let newBookButton = document.querySelector('#newBookButton')
+
 newBookButton.addEventListener('click', () => {
     modal.style.display = 'block'
 });
 
-let close = document.querySelector('.close')
+let close = document.querySelector('.close1')
 close.addEventListener('click', () => {
     modal.style.display = 'none'
 })
@@ -21,83 +19,66 @@ window.onclick = function(e) {
     }
 }
 
-
-// Delete Book
-// let deleteBookButton = document.querySelector('#deleteBookButton');
-// let closeBook = document.createElement('span')
-// closeBook.classList.add('closeButton')
-
-
-// deleteBookButton.addEventListener('click', () => {
-//     for (let i = 0; i < library; i++) {
-//         libraryDisplay.div.appendChild('closeBook');
-//     }
-// });
-
-//
-
 function Book(author, title, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.info = function() {
-        return `Title: ${title} "\n" Author: ${author} Pages: ${pages} Read: ${read}`
-    }
 }
 
 let submitButton = document.querySelector("#submitButton");
 submitButton.addEventListener("click", addBooktoLibary);
 
 function addBooktoLibary(e) {
+    // Pushes new book to Library Array
     e.preventDefault();
-    library.push(new Book(
+    let newBook = new Book(
         document.getElementById("title").value,
         document.getElementById("author").value,
         document.getElementById("pages").value, 
         document.getElementById("read").value)
-        )
-    
-    displayBooks();
+
+    library.push(newBook);
+    displayBook();
     resetForm();
 }
 
-// function createBookCard() {
-//     // creates a card div for each new book.
-// }
-
-function displayBookCard() {
-    // Creates a card div for each new book
+function createBookCard(index) {
+    // creates a card div for each new book.
     let newBookCard = document.createElement('div');
     newBookCard.classList.add('card')
-    libraryDisplay.appendChild(newBookCard);
+    newBookCard.innerHTML = 
+    `<span class="close1 close2" onclick="deleteBook(${index})">&times;</span>
+    <p>Title: ${library[index].title}</p>
+    <p>Author: ${library[index].author}</p>
+    <p>Pages: ${library[index].pages}</p>
+    <p>Read: ${library[index].read}</p>`
+    
+    return newBookCard;
+}
 
-    let deleteBook = document.createElement('span');
-    let bookTitle = document.createElement('p');
-    let bookAuthor = document.createElement('p');
-    let bookPages = document.createElement('p');
-    let bookRead = document.createElement('p');
+function displayBook() {
+    let libraryDisplay = document.querySelector("#libraryDisplay")
 
-        deleteBook.classList.add('close')
-        deleteBook.addEventListener('click', deleteBookCard);
-
-    newBookCard.append(deleteBook,bookTitle,bookAuthor,bookPages,bookRead)
-
-// Loops through library and displays each book on the page
-
+    libraryDisplay.innerHTML = '';
     for (book in library) {
-        deleteBook.innerHTML = '&times;';
-        bookTitle.textContent = `Title: ${library[book].title}`;
-        bookAuthor.textContent = `Author: ${library[book].author}`;
-        bookPages.textContent = `Pages: ${library[book].pages}`;
-        bookRead.textContent = `Status: ${library[book].read}`;
+        libraryDisplay.append(createBookCard(book));
     }
+}
+
+let deleteBookButton = document.querySelector('#deleteBookButton');
+let closeBook = document.getElementsByClassName('close2')
+
+    deleteBookButton.addEventListener('click', () => {
+        closeBook.style.visibility = 'visible'
+    });
+
+function deleteBook(index) {
+    library.splice(index, 1);
+    displayBook();
 
 }
 
-function deleteBookCard() {
-
-}
 
 Book.prototype.changeReadStatus = function() {
     // Changes read status
