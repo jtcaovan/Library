@@ -61,7 +61,7 @@ h1 {
 .close2 {
     visibility: hidden;
 }
-
+  
 .close1:hover {
     font-size: 40px;
 }
@@ -106,12 +106,30 @@ select {
     border: 1px solid black;
 }
 
+#submitButton:active {
+    outline:none;
+}
+
 #buttonContainer {
     display: flex;
     justify-content: center;
 }
 
-#deleteBookButton, #newBookButton {
+.fa, .fa-book{
+    margin-bottom: 10px;
+    font-size: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    opacity: 0.7;
+}
+
+.fa-book:hover{
+    font-size: 32px;
+    opacity: 1;
+}
+
+#deleteBookButton, #newBookButton{
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
     height: 35px;
@@ -128,3 +146,40 @@ select {
     color: black;
     border: 1px solid black;
 }
+
+#deleteBookButton:active, #newBookButton:active {
+    outline: none;
+}
+
+/* Animations */
+
+.scale-in-center {
+	animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @keyframes scale-in-center {
+    0% {
+      transform: scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+    
+.slide-in-right {
+	animation: slide-in-right 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @keyframes slide-in-right {
+    0% {
+      transform: translateX(1000px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  

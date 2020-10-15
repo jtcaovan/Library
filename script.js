@@ -1,23 +1,32 @@
 let library = [];
+let newBook;
 
-// Query selectors and event listener
-let modal = document.querySelector('#modal')
-let newBookButton = document.querySelector('#newBookButton')
+// if (!localStorage.getItem('library')) {
+//     populateStorage();
+// } else {
 
-newBookButton.addEventListener('click', () => {
-    modal.style.display = 'block'
-});
+// }
 
-let close = document.querySelector('.close1')
-close.addEventListener('click', () => {
-    modal.style.display = 'none'
-})
+document.querySelector("#submitButton").addEventListener("click", addBooktoLibary);
+document.querySelector('#deleteBookButton').addEventListener('click', addDeleteCard);
 
-window.onclick = function(e) {
-    if (e.target == modal) {
+// Display Modal for new book form
+    let modal = document.querySelector('#modal')
+
+    document.querySelector('#newBookButton').addEventListener('click', () => {
+        modal.style.display = 'block'
+    });
+
+    document.querySelector('.close1').addEventListener('click', () => {
         modal.style.display = 'none'
+    })
+
+    window.onclick = function(e) {
+        if (e.target == modal) {
+            modal.style.display = 'none'
+        }
     }
-}
+//
 
 function Book(author, title, pages, read) {
     this.title = title;
@@ -26,62 +35,87 @@ function Book(author, title, pages, read) {
     this.read = read;
 }
 
-let submitButton = document.querySelector("#submitButton");
-submitButton.addEventListener("click", addBooktoLibary);
 
 function addBooktoLibary(e) {
-    // Pushes new book to Library Array
+    // Pushes new book to library Array and displays in card onscreen
     e.preventDefault();
-    let newBook = new Book(
-        document.getElementById("title").value,
-        document.getElementById("author").value,
-        document.getElementById("pages").value, 
-        document.getElementById("read").value)
 
-    library.push(newBook);
-    displayBook();
-    resetForm();
-}
+    let title = document.getElementById("title").value;
+    let author = document.getElementById("author").value;
+    let pages = document.getElementById("pages").value; 
+    let read = document.getElementById("read").value;
 
-function createBookCard(index) {
-    // creates a card div for each new book.
-    let newBookCard = document.createElement('div');
-    newBookCard.classList.add('card')
-    newBookCard.innerHTML = 
-    `<span class="close1 close2" onclick="deleteBook(${index})">&times;</span>
-    <p>Title: ${library[index].title}</p>
-    <p>Author: ${library[index].author}</p>
-    <p>Pages: ${library[index].pages}</p>
-    <p>Read: ${library[index].read}</p>`
+    newBook = new Book(title, author, pages, read)
     
-    return newBookCard;
-}
+    // if (newBook.title == '' || newBook.author == '' || newBook.pages == '') {
+    //     alert("Please complete the form!");
+    // } else {
+        library.push(newBook);
+        displayBook(newBook);
+        resetForm();
+        console.log(library)
+    }
+// }
 
 function displayBook() {
     let libraryDisplay = document.querySelector("#libraryDisplay")
 
-    libraryDisplay.innerHTML = '';
+    let newBookCard = document.createElement('div');
+    newBookCard.classList.add('card','slide-in-right');
+
+    // Create new book card content
+        let titleCard = document.createElement('p');
+        titleCard.textContent = newBook.title;
+
+        let authorCard = document.createElement('p');
+        authorCard.textContent = newBook.author;
+
+        let pagesCard = document.createElement('p');
+        pagesCard.textContent = `Pages: ${newBook.pages}`;
+
+        let readCard = document.createElement('p');
+        readCard.textContent = newBook.read;
+
+        let closeCard = document.createElement('span');
+        closeCard.classList.add('close1','close2');
+        closeCard.innerHTML = "&times";
+
+        closeCard.addEventListener('click', () => {
+            libraryDisplay.removeChild(newBookCard)
+            library.splice(newBook, 1)
+        });
+
+        let toggleRead = document.createElement('button');
+        toggleRead.classList.add('fas', 'fa-book')
+
+        toggleRead.addEventListener('click', () => {
+            if (readCard.innerHTML === "Want to read") {
+                readCard.innerHTML = "Currently reading"
+            } else if (readCard.innerHTML === "Currently reading") {
+                readCard.innerHTML = "Read"
+            } else if (readCard.innerHTML === "Read") {
+                readCard.innerHTML = "Want to read"
+            }
+        })
+
+    newBookCard.append(closeCard, authorCard, titleCard, pagesCard, readCard, toggleRead);
+
     for (book in library) {
-        libraryDisplay.append(createBookCard(book));
+        libraryDisplay.append(newBookCard);
     }
 }
 
-let deleteBookButton = document.querySelector('#deleteBookButton');
-let closeBook = document.getElementsByClassName('close2')
-
-    deleteBookButton.addEventListener('click', () => {
-        closeBook.style.visibility = 'visible'
-    });
-
-function deleteBook(index) {
-    library.splice(index, 1);
-    displayBook();
-
-}
-
-
-Book.prototype.changeReadStatus = function() {
-    // Changes read status
+function addDeleteCard() {
+    let closeCard = document.querySelectorAll('.close2');
+    closeCard.forEach((x) => {
+        if (x.style.visibility === 'visible'){
+            x.style.visibility = 'hidden';
+            x.classList.remove('scale-in-center')
+        } else {
+            x.style.visibility = 'visible';
+            x.classList.add('scale-in-center')
+        }
+    })
 }
 
 function resetForm() {
