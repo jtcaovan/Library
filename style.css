@@ -12,21 +12,68 @@ h1 {
     text-align: center;
     font-family: 'Cormorant Garamond', serif !important;
     font-weight: 600;
-    font-size: 40px;
+    font-size: 52px;
+    margin: 30px;
 }
 
+h2 {
+    font-family: 'Cormorant Garamond', serif !important;
+    display: block;
+    font-size: 44px;
+    font-weight: 600;
+    margin: 40px 10px;
+}
+
+h3 {
+    font-family: 'Cormorant Garamond', serif !important;
+    display: block;
+    font-size: 40px;
+    font-weight: 600;
+    margin: 10px 10px;
+}
+
+h4 {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 24px !important;
+}
 
 #libraryDisplay {
+    margin: 50px;
+}
+
+#readDisplay, #currentDisplay, #unreadDisplay{
     display: flex;
     flex-wrap: wrap;
 }
 
 .card {
+    background-color:white;
     width: 200px;
     height: 250px;
-    border: 1px solid black;
+    border: 1.5px solid #565c5e;
+    font-size: 16px;
+    box-shadow: 3px 3px 10px;
+    border-radius: 4px;
+    overflow: hidden;
     margin: 10px;
     padding: 10px;
+    text-align: center;
+}
+
+.fas, .fa-book{
+    font-size: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    opacity: 0.7;
+    position: absolute;
+    right: 15px;
+    bottom: 15px;  
+}
+
+.fa-book:hover{
+    font-size: 26px;
+    opacity: 1;
 }
 
 #modal {
@@ -55,7 +102,7 @@ h1 {
     color:black;
     float: right;
     font-size: 34px;
-    transition: 0.8px;
+    transition: 0.6px;
 }
 
 .close2 {
@@ -64,14 +111,6 @@ h1 {
   
 .close1:hover {
     font-size: 40px;
-}
-
-h2 {
-    font-family: 'Cormorant Garamond', serif !important;
-    display: block;
-    margin-left: 12px;
-    font-size: 36px;
-    font-weight: 600;
 }
 
 input {
@@ -89,6 +128,12 @@ select {
     font-size: 14px;
 }
 
+#buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
 #submitButton {
     font-size: 16px;
     width: 35%;
@@ -97,6 +142,9 @@ select {
     color: white;
     border: none;
     transition: 0.4s;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px black;
+    margin-top: 10px;
 }
 
 #submitButton:hover {
@@ -108,25 +156,7 @@ select {
 
 #submitButton:active {
     outline:none;
-}
-
-#buttonContainer {
-    display: flex;
-    justify-content: center;
-}
-
-.fa, .fa-book{
-    margin-bottom: 10px;
-    font-size: 30px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    opacity: 0.7;
-}
-
-.fa-book:hover{
-    font-size: 32px;
-    opacity: 1;
+    box-shadow: 5px 5px 5px;
 }
 
 #deleteBookButton, #newBookButton{
@@ -136,8 +166,12 @@ select {
     width: 130px;
     background-color: black;
     color: white;
-    border: none;
-    margin: 20px;
+    margin: 0px 20px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px #565c5e;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.4s;
 }
 
 #deleteBookButton:hover, #newBookButton:hover{
@@ -149,10 +183,14 @@ select {
 
 #deleteBookButton:active, #newBookButton:active {
     outline: none;
+    box-shadow: 5px 5px 5px;
+}
+
+.toggleDiv {
+    background-color: white;
 }
 
 /* Animations */
-
 .scale-in-center {
 	animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }

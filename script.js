@@ -28,10 +28,15 @@ document.querySelector('#deleteBookButton').addEventListener('click', addDeleteC
     }
 //
 
-function Book(author, title, pages, read) {
+// let toggleDiv = document.querySelector('.toggleRead');
+// toggleDiv.addEventListener('click', (e) => {
+//     // 
+// })
+
+function Book(title, author, genre, read) {
     this.title = title;
     this.author = author;
-    this.pages = pages;
+    this.genre = genre;
     this.read = read;
 }
 
@@ -42,36 +47,38 @@ function addBooktoLibary(e) {
 
     let title = document.getElementById("title").value;
     let author = document.getElementById("author").value;
-    let pages = document.getElementById("pages").value; 
+    let genre = document.getElementById("genre").value; 
     let read = document.getElementById("read").value;
 
-    newBook = new Book(title, author, pages, read)
+    newBook = new Book(title, author, genre, read)
     
-    // if (newBook.title == '' || newBook.author == '' || newBook.pages == '') {
-    //     alert("Please complete the form!");
-    // } else {
+    if (newBook.title == '' || newBook.author == '') {
+        alert("Please fill out the title and author!");
+    } else {
         library.push(newBook);
         displayBook(newBook);
         resetForm();
         console.log(library)
     }
-// }
+}
 
 function displayBook() {
-    let libraryDisplay = document.querySelector("#libraryDisplay")
+    let unreadDisplay = document.querySelector("#unreadDisplay")
+    let currentDisplay = document.querySelector("#currentDisplay")
+    let readDisplay = document.querySelector('#readDisplay')
 
     let newBookCard = document.createElement('div');
     newBookCard.classList.add('card','slide-in-right');
 
     // Create new book card content
-        let titleCard = document.createElement('p');
+        let titleCard = document.createElement('h4');
         titleCard.textContent = newBook.title;
 
         let authorCard = document.createElement('p');
-        authorCard.textContent = newBook.author;
+        authorCard.textContent = `by ${newBook.author}`;
 
-        let pagesCard = document.createElement('p');
-        pagesCard.textContent = `Pages: ${newBook.pages}`;
+        let genreCard = document.createElement('p');
+        genreCard.textContent = newBook.genre;
 
         let readCard = document.createElement('p');
         readCard.textContent = newBook.read;
@@ -80,9 +87,10 @@ function displayBook() {
         closeCard.classList.add('close1','close2');
         closeCard.innerHTML = "&times";
 
-        closeCard.addEventListener('click', () => {
-            libraryDisplay.removeChild(newBookCard)
+        closeCard.addEventListener('click', (e) => {
+            e.target.parentNode.parentNode.removeChild(newBookCard)
             library.splice(newBook, 1)
+            addDeleteCard();
         });
 
         let toggleRead = document.createElement('button');
@@ -91,30 +99,40 @@ function displayBook() {
         toggleRead.addEventListener('click', () => {
             if (readCard.innerHTML === "Want to read") {
                 readCard.innerHTML = "Currently reading"
+                currentDisplay.appendChild(newBookCard)
             } else if (readCard.innerHTML === "Currently reading") {
                 readCard.innerHTML = "Read"
+                readDisplay.appendChild(newBookCard)
             } else if (readCard.innerHTML === "Read") {
                 readCard.innerHTML = "Want to read"
+                unreadDisplay.appendChild(newBookCard)
             }
-        })
+    })
 
-    newBookCard.append(closeCard, authorCard, titleCard, pagesCard, readCard, toggleRead);
+    newBookCard.append(closeCard, titleCard, authorCard, genreCard, readCard, toggleRead);
 
     for (book in library) {
-        libraryDisplay.append(newBookCard);
+        if (newBook.read === "Want to read") {
+            unreadDisplay.appendChild(newBookCard);
+        } else if (newBook.read === "Currently reading") {
+            currentDisplay.appendChild(newBookCard)
+        } else if (readCard.innerHTML === "Read") {
+            readDisplay.appendChild(newBookCard);
+        }
     }
 }
+
 
 function addDeleteCard() {
     let closeCard = document.querySelectorAll('.close2');
     closeCard.forEach((x) => {
-        if (x.style.visibility === 'visible'){
-            x.style.visibility = 'hidden';
-            x.classList.remove('scale-in-center')
-        } else {
-            x.style.visibility = 'visible';
-            x.classList.add('scale-in-center')
-        }
+            if (x.style.visibility === 'visible'){
+                x.style.visibility = 'hidden';
+                x.classList.remove('scale-in-center')
+            } else {
+                x.style.visibility = 'visible';
+                x.classList.add('scale-in-center')
+            }
     })
 }
 
