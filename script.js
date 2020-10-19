@@ -8,8 +8,12 @@ window.addEventListener('load', () => {
         });
     });
 
+function populateStorage() {
+    localStorage.setItem("library", JSON.stringify(library));
+}
+
 document.querySelector("#submitButton").addEventListener("click", addBooktoLibary);
-document.querySelector('#deleteBookButton').addEventListener('click', addDeleteCard);
+document.querySelector('#deleteBookButton').addEventListener('click', toggleDelete);
 
 // Display Modal for new book form
     let modal = document.querySelector('#modal')
@@ -53,7 +57,7 @@ function addBooktoLibary(e) {
     } else {
         library.push(newBook);
         displayBook(newBook);
-        localStorage.setItem("library", JSON.stringify(library));
+        populateStorage();
         resetForm();
     }
 }
@@ -85,8 +89,8 @@ function displayBook(newBook) {
 
         closeCard.addEventListener('click', (e) => {
             e.target.parentNode.parentNode.removeChild(newBookCard)
-            library.splice(newBook, 1)
-            addDeleteCard();
+            localStorage.removeItem(library.splice(newBook, 1));
+            toggleDelete();
         });
 
         let toggleRead = document.createElement('button');
@@ -120,7 +124,7 @@ function displayBook(newBook) {
 }
 
 
-function addDeleteCard() {
+function toggleDelete() {
     let closeCard = document.querySelectorAll('.close2');
     closeCard.forEach((x) => {
             if (x.style.visibility === 'visible'){
