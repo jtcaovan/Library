@@ -1,11 +1,12 @@
-let library = [];
+let library
 let newBook;
 
-// if (!localStorage.getItem('library')) {
-//     populateStorage();
-// } else {
-
-// }
+window.addEventListener('load', () => {
+    library = JSON.parse(localStorage.getItem("library")) || [];
+    library.forEach(book => {
+        displayBook(book);
+        });
+    });
 
 document.querySelector("#submitButton").addEventListener("click", addBooktoLibary);
 document.querySelector('#deleteBookButton').addEventListener('click', addDeleteCard);
@@ -27,11 +28,6 @@ document.querySelector('#deleteBookButton').addEventListener('click', addDeleteC
         }
     }
 //
-
-// let toggleDiv = document.querySelector('.toggleRead');
-// toggleDiv.addEventListener('click', (e) => {
-//     // 
-// })
 
 function Book(title, author, genre, read) {
     this.title = title;
@@ -57,12 +53,12 @@ function addBooktoLibary(e) {
     } else {
         library.push(newBook);
         displayBook(newBook);
+        localStorage.setItem("library", JSON.stringify(library));
         resetForm();
-        console.log(library)
     }
 }
 
-function displayBook() {
+function displayBook(newBook) {
     let unreadDisplay = document.querySelector("#unreadDisplay")
     let currentDisplay = document.querySelector("#currentDisplay")
     let readDisplay = document.querySelector('#readDisplay')
@@ -70,7 +66,7 @@ function displayBook() {
     let newBookCard = document.createElement('div');
     newBookCard.classList.add('card','slide-in-right');
 
-    // Create new book card content
+        // Create new book card content
         let titleCard = document.createElement('h4');
         titleCard.textContent = newBook.title;
 
@@ -107,7 +103,8 @@ function displayBook() {
                 readCard.innerHTML = "Want to read"
                 unreadDisplay.appendChild(newBookCard)
             }
-    })
+         })
+        //
 
     newBookCard.append(closeCard, titleCard, authorCard, genreCard, readCard, toggleRead);
 
